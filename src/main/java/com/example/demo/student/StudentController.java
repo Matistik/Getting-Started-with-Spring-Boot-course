@@ -1,5 +1,6 @@
 package com.example.demo.student;
 
+import com.example.demo.error.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,18 @@ public class StudentController {
     @GetMapping
     public List<Student> getStudents(){
         return  studentService.getStudents();
+
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable("id") Long studentId) throws StudentNotFoundException {
+        return  studentService.getStudentById(studentId);
+
+    }
+
+    @GetMapping("/name/{name}")
+    public Student getStudentByName(@PathVariable("name") String studentName) throws StudentNotFoundException {
+        return  studentService.getStudentByName(studentName);
 
     }
 

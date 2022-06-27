@@ -1,6 +1,13 @@
 package com.example.demo.student;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*; // ked prejdem z hibernate na ineho providera, tak persistence zariadi aby to stale fungovalo
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -9,6 +16,9 @@ import java.time.Period;
 // Table expresses not only entities, but also relations.
 @Entity
 @Table
+@Builder
+@Data
+@AllArgsConstructor
 public class Student {
     @Id
     @SequenceGenerator(
@@ -22,6 +32,7 @@ public class Student {
     )
 
     private Long Id;
+    @NotBlank(message = "Name may not be null")
     private String name;
     private String email;
     private LocalDate dob;

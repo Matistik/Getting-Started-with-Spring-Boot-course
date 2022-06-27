@@ -1,5 +1,6 @@
 package com.example.demo.student;
 
+import com.example.demo.error.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +64,33 @@ public class StudentService {
 
             student.setName(email);
         }
+    }
+
+    public Student getStudentById(Long id) throws StudentNotFoundException {
+
+        Optional<Student> student = studentRepository.findById(id);
+
+        if (!student.isPresent()){
+            throw new StudentNotFoundException("student not available");
+        }
+        return student.get();
+
+
+
+
+    }
+
+    public Student getStudentByName(String name) throws StudentNotFoundException {
+
+        Optional<Student> student = studentRepository.findStudentByName(name);
+
+        if (!student.isPresent()){
+            throw new StudentNotFoundException("student not available");
+        }
+        return student.get();
+
+
+
+
     }
 }
